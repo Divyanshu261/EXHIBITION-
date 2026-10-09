@@ -1,0 +1,145 @@
+@import "tailwindcss";
+
+@theme {
+  --color-void: #050507;
+  --color-panel: #0a0a10;
+  --color-crimson: #ff2d55;
+  --color-pitch: #00ff87;
+  --color-cyber: #00d4ff;
+  --color-gold: #ffc53d;
+
+  --font-display: "Orbitron", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Rajdhani", ui-sans-serif, system-ui, sans-serif;
+
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-spin-slow: spin 16s linear infinite;
+  --animate-spin-slower: spin 26s linear infinite reverse;
+  --animate-pulse-dot: pulseDot 1.6s ease-in-out infinite;
+  --animate-scan: scan 3.4s linear infinite;
+  --animate-flicker: flicker 5s linear infinite;
+  --animate-pop: pop 0.35s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+  --animate-rise: rise 0.5s ease both;
+  --animate-flash: flash 1.4s ease both;
+  --animate-blink: blink 1s steps(2, start) infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(-8px); }
+    50% { transform: translateY(10px); }
+  }
+  @keyframes pulseDot {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 currentColor; }
+    50% { opacity: 0.5; box-shadow: 0 0 12px 2px currentColor; }
+  }
+  @keyframes scan {
+    0% { transform: translateY(-120%); }
+    100% { transform: translateY(120%); }
+  }
+  @keyframes flicker {
+    0%, 100% { opacity: 0.92; }
+    7% { opacity: 0.6; }
+    11% { opacity: 0.95; }
+    38% { opacity: 0.72; }
+    61% { opacity: 0.95; }
+  }
+  @keyframes pop {
+    0% { transform: scale(0.6); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  @keyframes rise {
+    0% { transform: translateY(16px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+  @keyframes flash {
+    0% { background-color: rgba(0, 255, 135, 0.22); }
+    100% { background-color: transparent; }
+  }
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #050507;
+  color: #e8ecf1;
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(255, 45, 85, 0.6);
+  color: #fff;
+}
+
+/* ---------- glassmorphism ---------- */
+.glass {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+}
+.glass-deep {
+  background: linear-gradient(160deg, rgba(10, 10, 16, 0.85), rgba(5, 5, 8, 0.92));
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ---------- neon glows ---------- */
+.glow-crimson { box-shadow: 0 0 24px -6px rgba(255, 45, 85, 0.55), inset 0 0 18px -10px rgba(255, 45, 85, 0.4); }
+.glow-pitch   { box-shadow: 0 0 24px -6px rgba(0, 255, 135, 0.5),  inset 0 0 18px -10px rgba(0, 255, 135, 0.35); }
+.glow-cyber   { box-shadow: 0 0 24px -6px rgba(0, 212, 255, 0.5),  inset 0 0 18px -10px rgba(0, 212, 255, 0.35); }
+
+.text-glow-crimson { text-shadow: 0 0 14px rgba(255, 45, 85, 0.85), 0 0 40px rgba(255, 45, 85, 0.4); }
+.text-glow-pitch   { text-shadow: 0 0 14px rgba(0, 255, 135, 0.8), 0 0 40px rgba(0, 255, 135, 0.35); }
+.text-glow-cyber   { text-shadow: 0 0 14px rgba(0, 212, 255, 0.8), 0 0 40px rgba(0, 212, 255, 0.35); }
+
+/* ---------- textures ---------- */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+.scanlines::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  background: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 3px);
+}
+
+.clip-tag {
+  clip-path: polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
+}
+.clip-btn {
+  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+}
+
+/* ---------- form fields ---------- */
+.field {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #fff;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.field:focus {
+  border-color: rgba(0, 212, 255, 0.7);
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.18);
+}
+
+/* thin neon scrollbar for log panels */
+.log-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
+.log-scroll::-webkit-scrollbar-thumb { background: rgba(0, 212, 255, 0.35); border-radius: 3px; }
+.log-scroll::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.04); }
